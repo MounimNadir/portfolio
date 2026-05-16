@@ -11,10 +11,18 @@ export function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, margin: "-100px" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: false }}
+            className="text-primary font-semibold text-sm uppercase tracking-wider"
+          >
+            Get In Touch
+          </motion.span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 mt-2">
             Let's <span className="text-gradient">Connect</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -24,18 +32,25 @@ export function Contact() {
 
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, margin: "-50px" }}
+              transition={{ duration: 0.5 }}
               className="space-y-6"
             >
               <div className="glass-effect rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-6">Get In Touch</h3>
                 
                 <div className="space-y-4">
-                  <a
-                    href="mailto:contact@nadir-mounim.dev"
+                  <motion.a
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ delay: 0.1 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    href="mailto:mounimnadir7@gmail.com"
                     className="flex items-center gap-4 p-3 rounded-lg hover:bg-card transition-colors group"
                   >
                     <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform">
@@ -43,11 +58,16 @@ export function Contact() {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Email</p>
-                      <p className="font-medium">contact@nadir-mounim.dev</p>
+                      <p className="font-medium">mounimnadir7@gmail.com</p>
                     </div>
-                  </a>
+                  </motion.a>
 
-                  <a
+                  <motion.a
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ delay: 0.2 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
                     href="https://github.com/MounimNadir"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -60,10 +80,15 @@ export function Contact() {
                       <p className="text-sm text-muted-foreground">GitHub</p>
                       <p className="font-medium">@MounimNadir</p>
                     </div>
-                  </a>
+                  </motion.a>
 
-                  <a
-                    href="https://www.linkedin.com/in/mounimnadir/"
+                  <motion.a
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ delay: 0.3 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    href="https://linkedin.com/in/nadir-mounim"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 p-3 rounded-lg hover:bg-card transition-colors group"
@@ -75,9 +100,15 @@ export function Contact() {
                       <p className="text-sm text-muted-foreground">LinkedIn</p>
                       <p className="font-medium">Nadir Mounim</p>
                     </div>
-                  </a>
+                  </motion.a>
 
-                  <div className="flex items-center gap-4 p-3 rounded-lg">
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ delay: 0.4 }}
+                    className="flex items-center gap-4 p-3 rounded-lg"
+                  >
                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
                       <MapPin size={20} />
                     </div>
@@ -85,11 +116,17 @@ export function Contact() {
                       <p className="text-sm text-muted-foreground">Location</p>
                       <p className="font-medium">Tangier, Morocco</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
 
-              <div className="glass-effect rounded-lg p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ delay: 0.5 }}
+                className="glass-effect rounded-lg p-6"
+              >
                 <h3 className="text-lg font-semibold mb-3">Current Status</h3>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
@@ -98,18 +135,25 @@ export function Contact() {
                 <p className="text-sm text-muted-foreground mt-2">
                   Looking for roles in Cybersecurity Engineering, Cloud Security, or DevSecOps
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
 
+            {/* Quick Message Form */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, margin: "-50px" }}
+              transition={{ duration: 0.5 }}
               className="glass-effect rounded-lg p-6"
             >
               <h3 className="text-xl font-bold mb-6">Send a Message</h3>
               <form className="space-y-4">
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.1 }}
+                >
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
                     Name
                   </label>
@@ -119,8 +163,13 @@ export function Contact() {
                     className="w-full px-4 py-2 rounded-lg bg-card border border-border focus:border-primary focus:outline-none transition-colors"
                     placeholder="Your name"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.2 }}
+                >
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
                     Email
                   </label>
@@ -130,8 +179,13 @@ export function Contact() {
                     className="w-full px-4 py-2 rounded-lg bg-card border border-border focus:border-primary focus:outline-none transition-colors"
                     placeholder="your.email@example.com"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.3 }}
+                >
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message
                   </label>
@@ -141,10 +195,19 @@ export function Contact() {
                     className="w-full px-4 py-2 rounded-lg bg-card border border-border focus:border-primary focus:outline-none transition-colors resize-none"
                     placeholder="Your message..."
                   />
-                </div>
-                <Button type="submit" className="w-full glow-cyan">
-                  Send Message
-                </Button>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.4 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button type="submit" className="w-full glow-cyan">
+                    Send Message
+                  </Button>
+                </motion.div>
                 <p className="text-xs text-muted-foreground text-center">
                   Or email me directly at the address above
                 </p>

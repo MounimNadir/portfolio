@@ -8,7 +8,7 @@ export function Footer() {
   const socialLinks = [
     { icon: Github, href: "https://github.com/MounimNadir", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com/in/nadir-mounim", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:contact@nadir-mounim.dev", label: "Email" },
+    { icon: Mail, href: "mounimnadir7@gmail.com", label: "Email" },
   ]
 
   return (
@@ -17,7 +17,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} Nadir Mounim. Built with Next.js & Tailwind CSS
+              © {currentYear} Nadir Mounim.
             </p>
           </div>
 
