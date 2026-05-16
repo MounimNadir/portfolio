@@ -88,7 +88,7 @@ export function Contact() {
                     viewport={{ once: false }}
                     transition={{ delay: 0.3 }}
                     whileHover={{ scale: 1.02, x: 5 }}
-                    href="https://linkedin.com/in/nadir-mounim"
+                    href="https://www.linkedin.com/in/mounimnadir/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 p-3 rounded-lg hover:bg-card transition-colors group"
