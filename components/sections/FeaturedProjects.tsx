@@ -102,6 +102,21 @@ function MagneticCard({ project, index, onViewDetails }: any) {
     y.set(0)
   }
 
+  // Helper function to get first 2 metrics regardless of format
+  const getMetricBadges = () => {
+    if (Array.isArray(project.metrics)) {
+      // Array format: [{ label: "...", value: "..." }]
+      return project.metrics.slice(0, 2)
+    } else {
+      // Object format: { "Key": "Value" }
+      return Object.entries(project.metrics)
+        .slice(0, 2)
+        .map(([label, value]) => ({ label, value }))
+    }
+  }
+
+  const metricBadges = getMetricBadges()
+
   return (
     <motion.div
       ref={ref}
@@ -138,7 +153,7 @@ function MagneticCard({ project, index, onViewDetails }: any) {
               <project.icon className="text-primary" size={24} />
             </motion.div>
             <div className="flex gap-2">
-              {project.metrics.slice(0, 2).map((metric: { label: string; value: string }, idx: number) => (
+              {metricBadges.map((metric: { label: string; value: string }, idx: number) => (
                 <motion.span
                   key={idx}
                   whileHover={{ scale: 1.05 }}
