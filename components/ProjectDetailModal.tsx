@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { X, ExternalLink, Download, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PDFPreviewModal } from "@/components/PDFPreviewModal"
+import GNS3NetworkTopology from '@/components/projects/GNS3NetworkTopology';
+import GNS3MetricsDashboard from '@/components/projects/GNS3MetricsDashboard';
 
 interface ProjectDetail {
   id: number
@@ -15,11 +17,11 @@ interface ProjectDetail {
   challenge: string
   solution: string[]
   results: string[]
-  architecture: {
+  architecture?: {
     title: string
     description: string
   }
-  metrics: { label: string; value: string }[]
+  metrics: { label: string; value: string }[] | Record<string, string>
   pdfUrl?: string
   githubLink?: string
 }
@@ -86,12 +88,20 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
                   {/* Metrics */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    {project.metrics.map((metric, index) => (
-                      <div key={index} className="glass-effect rounded-lg p-4 text-center">
-                        <p className="text-sm text-muted-foreground mb-1">{metric.label}</p>
-                        <p className="text-lg font-bold text-primary">{metric.value}</p>
-                      </div>
-                    ))}
+                    {Array.isArray(project.metrics) 
+                      ? project.metrics.map((metric, index) => (
+                          <div key={index} className="glass-effect rounded-lg p-4 text-center">
+                            <p className="text-sm text-muted-foreground mb-1">{metric.label}</p>
+                            <p className="text-lg font-bold text-primary">{metric.value}</p>
+                          </div>
+                        ))
+                      : Object.entries(project.metrics).slice(0, 4).map(([label, value], index) => (
+                          <div key={index} className="glass-effect rounded-lg p-4 text-center">
+                            <p className="text-sm text-muted-foreground mb-1">{label}</p>
+                            <p className="text-lg font-bold text-primary">{value}</p>
+                          </div>
+                        ))
+                    }
                   </div>
 
                   {/* Challenge */}
@@ -117,13 +127,36 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                     </ul>
                   </div>
 
-                  {/* Architecture */}
-                  <div className="mb-6 glass-effect rounded-lg p-4">
-                    <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                      <span className="text-primary">🏗️</span> {project.architecture.title}
-                    </h3>
-                    <p className="text-muted-foreground">{project.architecture.description}</p>
-                  </div>
+                  {/* 🔥 INTERACTIVE COMPONENTS FOR GNS3 PROJECT (ID = 2) 🔥 */}
+                  {project.id === 2 && (
+                    <>
+                      {/* Network Architecture - Interactive Topology */}
+                      <section className="mb-8">
+                        <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                          <span className="text-primary">🌐</span> Interactive Network Topology
+                        </h3>
+                        <GNS3NetworkTopology />
+                      </section>
+
+                      {/* Performance Metrics Dashboard */}
+                      <section className="mb-8">
+                        <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                          <span className="text-primary">📊</span> Performance & Results
+                        </h3>
+                        <GNS3MetricsDashboard />
+                      </section>
+                    </>
+                  )}
+
+                  {/* Architecture - Only show if exists */}
+                  {project.architecture && (
+                    <div className="mb-6 glass-effect rounded-lg p-4">
+                      <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                        <span className="text-primary">🏗️</span> {project.architecture.title}
+                      </h3>
+                      <p className="text-muted-foreground">{project.architecture.description}</p>
+                    </div>
+                  )}
 
                   {/* Results */}
                   <div className="mb-6">
