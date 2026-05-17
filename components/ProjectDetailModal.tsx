@@ -128,7 +128,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                   </div>
 
                   {/* 🔥 INTERACTIVE COMPONENTS FOR GNS3 PROJECT (ID = 2) 🔥 */}
-                  {project.id === 2 && (
+                  {project.id === 5 && (
                     <>
                       {/* Network Architecture - Interactive Topology */}
                       <section className="mb-8">

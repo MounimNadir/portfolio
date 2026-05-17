@@ -159,107 +159,41 @@ export const projectsData = [
     gradient: "from-orange-500/10 to-red-500/10"
   },
   {
-  id: 2,
-  title: "Conception, Simulation et Sécurisation d'un Réseau d'Entreprise Avancé",
-  subtitle: "Multi-Site Enterprise Network with HA Cluster, Dual WAN & VPN Infrastructure",
-  description: "Enterprise-grade network infrastructure featuring high availability pfSense cluster (CARP), dual WAN failover with load balancing, multi-site VPN connectivity (IPsec site-to-site + OpenVPN remote access), advanced VLAN segmentation, and complete disaster recovery validation through simulated failure scenarios.",
-  icon: Shield, // or Network icon
-  tags: [
-    "GNS3", 
-    "pfSense HA Cluster", 
-    "CARP", 
-    "Dual WAN", 
-    "Load Balancing",
-    "VPN IPsec", 
-    "OpenVPN", 
-    "Cisco IOS", 
-    "VLAN Segmentation",
-    "PKI Infrastructure",
-    "Failover Testing",
-    "Enterprise Architecture",
-    "VMware Workstation",
-    "Network Security"
-  ],
-  
-  challenge: "Design and deploy a fault-tolerant, multi-site enterprise network infrastructure capable of surviving hardware failures, ISP outages, and security breaches. The architecture must guarantee 99.9%+ uptime through redundant components, support secure remote access for teleworkers, enable seamless site-to-site connectivity across geographically distributed offices, and enforce strict network segmentation to prevent lateral movement in case of compromise. All resilience mechanisms must be validated through live failure simulation testing.",
-  
-  solution: [
-    "**High Availability Cluster Architecture:** Deployed 2x pfSense CE 2.7.2 firewalls in active-passive CARP (Common Address Redundancy Protocol) cluster configuration with automatic sub-10-second failover, shared virtual IP addresses across all network segments (WAN, LAN, VLANs), real-time state table synchronization via pfsync protocol on dedicated SYNC interface, and XMLRPC configuration replication ensuring policy consistency across both nodes",
-    
-    "**Dual WAN Redundancy with Load Balancing:** Configured dual ISP connectivity (ISP1 + ISP2) with intelligent gateway monitoring via ICMP health checks, created Groupe_DualWAN with equal-priority Tier 1 routing for round-robin traffic distribution across both links, implemented hybrid outbound NAT forcing CARP virtual IP (203.0.113.4) as source address to maintain TCP session continuity during failover, validated automatic ISP failover with <10s convergence time and zero session drops",
-    
-    "**Multi-Site VPN Infrastructure:** Built complete VPN ecosystem with site-to-site IPsec tunnels connecting headquarters to 2 remote branch offices (Sites A & B using Cisco IOSv routers with IKEv1, AES-128, SHA256, DH Group 14), deployed OpenVPN remote access server (UDP/1194, TLS 1.2, AES-256-GCM encryption) for teleworker connectivity with certificate-based PKI authentication, configured tunnel interface pool 10.8.0.0/24 for VPN clients, implemented least-privilege firewall rules on VPN_WORKER interface blocking DMZ access while allowing LAN resources",
-    
-    "**Advanced Network Segmentation:** Designed 4-tier VLAN architecture (VLAN 10: Users 192.168.10.0/24, VLAN 20: Admin 192.168.20.0/24, VLAN 50: DMZ 192.168.50.0/24, VLAN 30: Guest 192.168.30.0/24) using Cisco IOSvL2 switches with 802.1Q trunking, deployed Rapid-PVST for sub-second spanning-tree convergence with PortFast on access ports, configured inter-VLAN routing on pfSense cluster with default-deny firewall policy and explicit allow rules per business requirements",
-    
-    "**DMZ Security Architecture:** Isolated public-facing services (Web/Mail servers on Alpine Linux) in dedicated VLAN 50 with RFC1918 private network blocking preventing DMZ→LAN lateral movement, implemented Port Forwarding (DNAT) on WAN virtual IP redirecting TCP/80 to internal DMZ server 192.168.50.10, validated external accessibility from simulated Internet client while confirming internal network isolation via failed ping tests from DMZ to LAN",
-    
-    "**PKI & Certificate Infrastructure:** Established internal Certificate Authority (CA_Interne_Entreprise) on pfSense for X.509 certificate management, generated server certificate for OpenVPN daemon and individual client certificates for each remote user, enforced certificate-based authentication eliminating password-only VPN access, distributed .ovpn configuration bundles with embedded certificates for one-click VPN client setup",
-    
-    "**Comprehensive Validation Testing:** Executed 7 distinct failure scenarios documented with 23 technical diagrams: (1) CARP failover - validated automatic Master→Backup transition with traceroute showing IP change from .2→.3, (2) WAN failover - simulated ISP1 link failure with Wireshark capture showing 10s packet loss during convergence then automatic routing via ISP2, (3) DMZ isolation - confirmed firewall blocking DMZ→LAN ICMP traffic, (4) Guest network isolation - verified Guest VLAN can reach Internet but not internal resources, (5) Port forwarding - successfully accessed DMZ web server from external Internet client, (6) Site-to-site VPN - validated encrypted tunnel with ping from HQ VLAN 10 to remote Site A 172.16.10.0/24, (7) Remote access VPN - confirmed teleworker establishing OpenVPN tunnel and accessing internal LAN resources",
-    
-    "**Technology Stack:** GNS3 v2.2.43 orchestrator with GNS3 VM running on VMware Workstation Pro (VT-x hardware acceleration), pfSense CE 2.7.2 firewall cluster (2 instances), Cisco IOSv v15.9 routers for remote sites, Cisco IOSvL2 switches for L2 segmentation, VPCS (Virtual PC Simulator) for client endpoints, Alpine Linux VMs for DMZ servers, Cisco Packet Tracer for initial topology prototyping and IP addressing validation"
-  ],
-  
-  results: [
-    "**99.9%+ Availability Achieved:** Zero-downtime architecture validated through live testing - pfSense Master failure resulted in automatic CARP failover in <10 seconds with all active TCP sessions preserved, WAN link failure triggered automatic ISP2 routing with 10-second convergence and zero impact on user traffic post-failover, demonstrating production-ready high availability",
-    
-    "**Enterprise-Grade Security Posture:** Implemented defense-in-depth strategy with 4 isolated VLANs enforcing strict segmentation, validated DMZ isolation with 100% blocking of DMZ→LAN traffic attempts while maintaining controlled public access via DNAT, deployed cryptographic VPN tunnels (IPsec + OpenVPN) with AES-256-GCM encryption and certificate-based authentication eliminating weak password vectors",
-    
-    "**Multi-Site Connectivity:** Successfully interconnected 3 geographically distributed sites (HQ + 2 branches) via IPsec VPN tunnels with transparent Layer 3 routing - achieved <25ms average latency between sites over encrypted tunnels, validated bi-directional connectivity with ping tests from HQ 192.168.10.0/24 to Site A 172.16.10.0/24 and Site B 172.16.20.0/24",
-    
-    "**Remote Workforce Support:** Deployed production-ready VPN infrastructure supporting secure telework - OpenVPN server handling authentication via internal PKI, automatic IP allocation from 10.8.0.0/24 pool, validated remote worker accessing internal LAN resources (192.168.10.100) while DMZ access remained blocked per least-privilege policy",
-    
-    "**Load Balancing Optimization:** Dual WAN configuration distributing outbound traffic across ISP1 (203.0.113.x) and ISP2 (198.51.100.x) in round-robin fashion, effectively doubling available Internet bandwidth utilization while maintaining instant failover capability when either link degrades",
-    
-    "**Professional Documentation:** Produced comprehensive 28-page technical report with detailed configuration snapshots, network topology diagrams, CLI command sequences, testing methodologies, and quantitative results (convergence times, packet loss metrics, session continuity measurements) suitable for audit, regulatory compliance, or technical handover"
-  ],
-  
-  metrics: {
-    "Failover Time (pfSense HA)": "<10 seconds",
-    "Failover Time (WAN Dual ISP)": "~10 seconds",
-    "Network Uptime": "99.9%+",
-    "VPN Tunnels Deployed": "3 (2x IPsec + 1x OpenVPN)",
-    "Network Segments (VLANs)": "4",
-    "Firewall Rules": "20+",
-    "Sites Interconnected": "3",
-    "Security Zones": "5 (WAN, LAN, DMZ, Guest, VPN)",
-    "Test Scenarios Executed": "7",
-    "Documentation Pages": "28",
-    "Technical Diagrams": "23"
-  },
-  
-  technologies: [
-    { name: "GNS3", category: "Network Emulation" },
-    { name: "pfSense CE 2.7.2", category: "Firewall/Router" },
-    { name: "CARP Protocol", category: "High Availability" },
-    { name: "IPsec IKEv1", category: "VPN Encryption" },
-    { name: "OpenVPN", category: "Remote Access VPN" },
-    { name: "Cisco IOS", category: "Enterprise Routing" },
-    { name: "802.1Q VLANs", category: "Network Segmentation" },
-    { name: "VMware Workstation Pro", category: "Virtualization" },
-    { name: "PKI / X.509 Certificates", category: "Authentication" },
-    { name: "AES-256-GCM", category: "Encryption" },
-    { name: "XMLRPC", category: "Configuration Sync" },
-    { name: "pfsync", category: "State Synchronization" }
-  ],
-  
-  githubUrl: null, // No GitHub for network simulation
-  liveUrl: null,   // Network simulation project
-  videoUrl: null,  // We'll create this!
-  
-  pdfUrl: "/reports/rapport_GNS3_vfinal.pdf",
-  
-  images: [
-    "/projects/gns3-topology.png",        // Network topology diagram
-    "/projects/gns3-ha-cluster.png",      // CARP cluster configuration
-    "/projects/gns3-dual-wan.png",        // Dual WAN monitoring
-    "/projects/gns3-vpn-ipsec.png",       // IPsec tunnel config
-    "/projects/gns3-openvpn.png",         // OpenVPN server
-    "/projects/gns3-failover-test.png"    // Failover validation
-  ],
-  
-  featured: true,
-  order: 1  // Make this your TOP project!
-}
+    id: 5,
+    title: "GNS3 Enterprise Network - HA Cluster & Multi-Site VPN",
+    description: "Enterprise network infrastructure with high availability pfSense cluster, dual WAN failover, multi-site VPN connectivity, and advanced VLAN segmentation validated through comprehensive failure testing.",
+    icon: Shield,
+    tags: ["GNS3", "pfSense HA", "CARP", "Dual WAN", "IPsec VPN", "OpenVPN", "Cisco IOS", "VLAN", "Failover Testing"],
+    challenge: "Design and deploy a fault-tolerant, multi-site enterprise network infrastructure capable of surviving hardware failures, ISP outages, and security breaches. The architecture must guarantee 99.9%+ uptime through redundant components, support secure remote access for teleworkers, enable seamless site-to-site connectivity across geographically distributed offices, and enforce strict network segmentation to prevent lateral movement in case of compromise.",
+    solution: [
+      "Deployed 2x pfSense CE 2.7.2 firewalls in active-passive CARP cluster with automatic sub-10-second failover and real-time state synchronization",
+      "Configured dual ISP connectivity with intelligent gateway monitoring, round-robin load balancing, and automatic failover with <10s convergence",
+      "Built complete VPN ecosystem with IPsec site-to-site tunnels connecting 2 remote branch offices and OpenVPN server for remote workers",
+      "Designed 4-tier VLAN architecture (Users, Admin, DMZ, Guest) using Cisco switches with 802.1Q trunking and inter-VLAN routing",
+      "Isolated public-facing DMZ services with RFC1918 blocking preventing lateral movement while enabling controlled external access",
+      "Established internal PKI Certificate Authority for X.509 management and certificate-based VPN authentication",
+      "Executed 7 distinct failure scenarios with 23 technical diagrams validating CARP failover, WAN redundancy, and security isolation",
+      "Validated production-ready architecture through comprehensive testing including traceroute analysis and Wireshark packet captures"
+    ],
+    architecture: {
+      title: "High Availability Multi-Site Network",
+      description: "Dual pfSense firewalls in CARP cluster provide active-passive redundancy with sub-10-second failover. Dual WAN links enable automatic ISP failover and load balancing. Four isolated VLANs enforce network segmentation. IPsec tunnels connect remote sites while OpenVPN serves remote workers. All components validated through comprehensive failure testing."
+    },
+    results: [
+      "99.9%+ availability validated - zero active session drops during failover testing",
+      "Enterprise-grade security with 4 isolated VLANs and 100% DMZ isolation confirmed",
+      "Multi-site connectivity across 3 geographically distributed sites via encrypted IPsec tunnels",
+      "Secure remote workforce infrastructure with OpenVPN + PKI certificate authentication",
+      "Dual WAN load balancing effectively doubling available Internet bandwidth utilization",
+      "Professional 28-page technical documentation with detailed testing results and diagrams"
+    ],
+    metrics: [
+      { label: "HA Failover", value: "<10 sec" },
+      { label: "Network Uptime", value: "99.9%+" },
+      { label: "VPN Tunnels", value: "3" },
+      { label: "VLANs", value: "4" }
+    ],
+    pdfUrl: "/reports/rapport_GNS3_vfinal.pdf",
+    gradient: "from-cyan-500/10 to-indigo-500/10"
+  }
 ]
